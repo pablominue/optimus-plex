@@ -10,34 +10,10 @@ BASE_PATH = os.getenv('BASE_PATH')
 INPUT_FORMAT = os.getenv('INPUT_FORMAT')
 OUTPUT_FORMAT = os.getenv('OUTPUT_FORMAT')
 
-parser = argparse.ArgumentParser('optimus-plex')
-parser.add_argument(
-    '--directory', '-d',
-    help="Directory of the Plex Media library",
-    type=str
-)
-parser.add_argument(
-    '--input-format', '-i',
-    help="Fromat that wants to be converted. i.e. m2ts",
-    type=str,
-    dest='input'
-)
-parser.add_argument(
-    '--output-format', '-o',
-    help="Desired format. i.e mp4",
-    type=str,
-    dest='output'
-)
+if ',' in INPUT_FORMAT:
+    INPUT_FORMAT = list(map(lambda x: str(x).strip(), INPUT_FORMAT.split(',')))
 
-args = parser.parse_args()
 if __name__ == '__main__':
-    for a,b,c in os.walk(os.getcwd()):
-        lg.info(f"{a}: {b}: {c}")
-    
-    path = args.directory if args.directory else BASE_PATH
-    in_format = args.input if args.input else INPUT_FORMAT
-    out_format = args.output if args.output else OUTPUT_FORMAT
-    
-    converter = Converter(output_format=out_format)
-    converter.run(input_format=in_format, base_path=path)
+    converter = Converter(output_format=OUTPUT_FORMAT)
+    converter.run(input_format=INPUT_FORMAT, base_path=BASE_PATH)
     

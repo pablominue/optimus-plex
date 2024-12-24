@@ -9,6 +9,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 ffmpeg-python = "^0.2.0"
+pandas = "^2.2.3"
+rich = "^13.9.4"
 
 
 [build-system]
