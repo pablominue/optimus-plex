@@ -2,7 +2,7 @@ import ffmpeg
 from src.crowler import Crowler
 
 class Converter:
-    
+     
     def __init__(self, output_format: str) -> None:
         self.output_format = output_format
         

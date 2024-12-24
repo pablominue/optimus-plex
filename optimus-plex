@@ -2,6 +2,9 @@
 import argparse
 import os
 from src.converter import Converter
+import logging
+
+lg = logging.getLogger()
 
 BASE_PATH = os.getenv('BASE_PATH')
 INPUT_FORMAT = os.getenv('INPUT_FORMAT')
@@ -28,6 +31,13 @@ parser.add_argument(
 
 args = parser.parse_args()
 if __name__ == '__main__':
-    converter = Converter(output_format=args.output)
-    converter.run(input_format=args.input, base_path=args.directory)
+    for a,b,c in os.walk(os.getcwd()):
+        lg.info(f"{a}: {b}: {c}")
+    
+    path = args.directory if args.directory else BASE_PATH
+    in_format = args.input if args.input else INPUT_FORMAT
+    out_format = args.output if args.output else OUTPUT_FORMAT
+    
+    converter = Converter(output_format=out_format)
+    converter.run(input_format=in_format, base_path=path)
     

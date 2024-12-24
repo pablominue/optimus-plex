@@ -4,9 +4,9 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-ENV BASE_PATH=/app/media \
-    INPUT_FORMAT=m2ts \
-    OUTPUT_FORMAT=mp4 \
+ENV BASE_PATH="/app/data" \
+    INPUT_FORMAT="mp4" \
+    OUTPUT_FORMAT="mkv" \
     POETRY_VERSION=1.6.1 \
     POETRY_HOME="/opt/poetry" \
     POETRY_VENV="/opt/poetry-venv" \
@@ -31,5 +31,5 @@ COPY . .
 
 # Comando para ejecutar la aplicación
 ENTRYPOINT ["poetry", "run", "python3", "optimus-plex"]
-CMD ["-d", "$BASE_PATH", "-i", "$INPUT_FORMAT", "-o", "$OUTPUT_FORMAT"]
+
 

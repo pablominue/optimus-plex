@@ -7,7 +7,7 @@ class Crowler:
         
     def crowl(self, search_format: str) -> t.Generator[t.Any, t.Any, t.Any]:
         if not os.path.exists(self.path):
-            raise FileNotFoundError("Base Path can not be found")
+            raise FileNotFoundError(f"Base Path: {self.path} can not be found")
         for dirpath, _, files in os.walk(self.path):
             for file in files:
                 if file.endswith(search_format):
