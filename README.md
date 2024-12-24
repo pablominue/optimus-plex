@@ -1,4 +1,5 @@
 # Optimus Plex
+![Optimus Plex](src/assets/optimus-plex.png)
 
 Optimus Plex is a Python-based file conversion tool that leverages ffmpeg to convert files from one format to another.
 
