@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "optimus-plex"
-version = "0.1.0"
+version = "1.0.0"
 description = "Optimise your Plex media Library"
 authors = ["Pablo Minue"]
 license = "MIT"
@@ -11,6 +11,7 @@ python = "^3.11"
 ffmpeg-python = "^0.2.0"
 pandas = "^2.2.3"
 rich = "^13.9.4"
+plexapi = {extras = ["alert"], version = "^4.16.0"}
 
 
 [build-system]

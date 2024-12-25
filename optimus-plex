@@ -2,18 +2,30 @@
 import argparse
 import os
 from src.converter import Converter
-import logging
+from src.api import Plex
+from src.utils import PabLog
 
-lg = logging.getLogger()
+
+lg = PabLog(__name__)
 
 BASE_PATH = os.getenv('BASE_PATH')
 INPUT_FORMAT = os.getenv('INPUT_FORMAT')
 OUTPUT_FORMAT = os.getenv('OUTPUT_FORMAT')
+DELETE_OLD = os.getenv('DELETE_OLD')
+PLEX_URL = os.getenv('PLEX_URL')
+PLEX_TOKEN = os.getenv('PLEX_TOKEN')
 
 if ',' in INPUT_FORMAT:
     INPUT_FORMAT = list(map(lambda x: str(x).strip(), INPUT_FORMAT.split(',')))
 
 if __name__ == '__main__':
-    converter = Converter(output_format=OUTPUT_FORMAT)
-    converter.run(input_format=INPUT_FORMAT, base_path=BASE_PATH)
-    
+    lg.add_title("OPTIMUS PLEX")
+    api = Plex().connect_with_token(PLEX_URL, PLEX_TOKEN)
+    sessions = api.check_sessions()
+    if len(sessions) == 0:
+        lg.log.info("No active sessions. Starting Conversion...")
+        converter = Converter(output_format=OUTPUT_FORMAT, delete_old = DELETE_OLD)
+        converter.run(input_format=INPUT_FORMAT, base_path=BASE_PATH)
+        lg.log.info("Conversion Done")
+    else:
+        lg.log.warning(f"Unable to convert at the moment: {len(sessions)} active sessions found")

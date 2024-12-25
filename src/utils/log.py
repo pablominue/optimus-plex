@@ -32,7 +32,7 @@ class PabLog:
     def __init__(
         self,
         log_name: str = "Logger",
-        __format: str = "- %(message)s",
+        __format: str = "%(message)s",
         **kwargs: dict[str, Any],
     ) -> None:
         """Logger Constructor"""

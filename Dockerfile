@@ -7,14 +7,13 @@ RUN apt-get update && apt-get install -y \
 ENV BASE_PATH="/app/data" \
     INPUT_FORMAT="mp4" \
     OUTPUT_FORMAT="mkv" \
-    POETRY_VERSION=1.6.1 \
-    POETRY_HOME="/opt/poetry" \
     POETRY_VENV="/opt/poetry-venv" \
-    POETRY_CACHE_DIR="/opt/.cache"
+    PLEX_URL="http://localhost:32400" \
+    PLEX_TOKEN=""
 
 RUN python3 -m venv $POETRY_VENV \
     && $POETRY_VENV/bin/pip install -U pip setuptools \
-    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
+    && $POETRY_VENV/bin/pip install poetry
 
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 

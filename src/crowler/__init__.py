@@ -13,7 +13,7 @@ class Crowler:
             raise FileNotFoundError(f"Base Path: {self.path} can not be found")
         for dirpath, _, files in os.walk(self.path):
             for file in files:
-                if isinstance(list, search_format):
+                if isinstance(search_format, list):
                     search_format = tuple(search_format)
                 if file.endswith(search_format):
                     lg.log.info("Target File ready for Conversion: %s", file)
