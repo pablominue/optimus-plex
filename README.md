@@ -30,6 +30,23 @@ poetry install
 
 3. Ensure ffmpeg is installed on your system.
 
+## Docker Instructions
+To run Optimus Plex using Docker, follow these steps:
+
+1.
+Build the Docker image:
+```bash
+docker build -t optimus-plex .
+```
+2.
+Run the Docker container:
+```bash
+docker run -v /path/to/your/files:/app/files optimus-plex
+
+```
+Replace /path/to/your/files with the path to the directory containing your input files. The -v flag mounts this directory into the container.
+
+
 ## Usage
 
 Here's a basic example of how to use the Converter class:

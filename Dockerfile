@@ -9,7 +9,8 @@ ENV BASE_PATH="/app/data" \
     OUTPUT_FORMAT="mkv" \
     POETRY_VENV="/opt/poetry-venv" \
     PLEX_URL="http://localhost:32400" \
-    PLEX_TOKEN=""
+    PLEX_TOKEN="" \
+    DELETE_OLD="True" 
 
 RUN python3 -m venv $POETRY_VENV \
     && $POETRY_VENV/bin/pip install -U pip setuptools \
