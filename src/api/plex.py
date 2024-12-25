@@ -1,3 +1,16 @@
+from plexapi.myplex import MyPlexAccount
+from plexapi.server import PlexServer
+from plexapi.base import MediaContainer
+import typing as t
+import os
+
+from src.utils import PabLog
+
+lg = PabLog(__name__)
+
+PLEX_URL = os.getenv('PLEX_URL')
+PLEX_TOKEN = os.getenv('PLEX_TOKEN')
+
 class Plex:
     """
     A class to interact with a Plex Media Server.
