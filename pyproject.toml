@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "optimus-plex"
-version = "1.0.0"
+version = "1.0.1"
 description = "Optimise your Plex media Library"
 authors = ["Pablo Minue"]
 license = "MIT"

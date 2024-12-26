@@ -38,7 +38,7 @@ class Converter:
         output = file.replace(f'.{input_format}', f'.{output_format}')
         ffmpeg.input(file).output(output).run()
 
-    def run(self, input_format: str, base_path: str) -> None:
+    def run(self, input_format: str, base_path: str) -> t.Generator[t.Any, t.Any, t.Any]:
         """
         Run the conversion process on all files with the specified input format in the given base path.
 
@@ -57,5 +57,7 @@ class Converter:
                 if self.delete_old:
                     os.remove(path)
                     lg.log.info("File %s has been deleted", path)
+                    yield True
             except Exception as e:
                 lg.log.error(e)
+                yield False
