@@ -17,6 +17,7 @@ If multiple input formats are specified, they should be comma-separated in the I
 
 import argparse
 import os
+import time
 from src.converter import Converter
 from src.api import Plex
 from src.utils import PabLog
@@ -52,11 +53,17 @@ if __name__ == '__main__':
     """
     lg.add_title("OPTIMUS PLEX")
     api = Plex().connect_with_token(PLEX_URL, PLEX_TOKEN)
-    sessions = api.check_sessions()
-    if len(sessions) == 0:
-        lg.log.info("No active sessions. Starting Conversion...")
+    while True:
         converter = Converter(output_format=OUTPUT_FORMAT, delete_old=DELETE_OLD)
-        converter.run(input_format=INPUT_FORMAT, base_path=BASE_PATH)
-        lg.log.info("Conversion Done")
-    else:
-        lg.log.warning(f"Unable to convert at the moment: {len(sessions)} active sessions found")
+        sessions = api.check_sessions()
+        if len(sessions) == 0:
+            lg.log.info("No active sessions. Starting Conversion...")
+            for item in converter.run(input_format=INPUT_FORMAT, base_path=BASE_PATH):
+                message = "Conversion Done" if item else "Conversion Failed"
+                lg.log.info(message)
+                if len(api.check_sessions()) > 0:
+                    lg.log.info("Active session detected. Stopping conversion...")
+                    break
+        else:
+            lg.log.warning(f"Unable to convert at the moment: {len(sessions)} active sessions found")
+            time.sleep(1800)

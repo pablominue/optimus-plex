@@ -71,3 +71,6 @@ class Plex:
             lg.log.info(f"Sesion Found: {title=}, {players=}")
             
         return sessions
+    
+    def get_butler_tasks(self) -> list[MediaContainer]:
+        lg.log.info([task.name for task in self.server.butlerTasks()])
