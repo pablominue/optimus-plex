@@ -10,6 +10,12 @@ from rich.markdown import Markdown
 from rich.progress import Progress
 from rich.table import Table
 
+import os
+
+PATH = os.getenv("BASE_PATH")
+if not os.path.exists(os.path.join(PATH, 'optimus-plex')):
+    os.makedirs(os.path.join(PATH, 'optimus-plex'))
+
 COLORS = [
     "purple",
     "magenta",
@@ -38,10 +44,11 @@ class PabLog:
         """Logger Constructor"""
         self.avaliable_colors = []
         self.rich_handler = RichHandler(rich_tracebacks=True)
-
+        path = os.path.join(PATH, 'optimus-plex', 'optimus.log')
+        self.file_handler = logging.FileHandler(path)
         self.avaliable_colors = COLORS
 
-        __handlers = [self.rich_handler]
+        __handlers = [self.rich_handler, self.file_handler]
 
         logging.basicConfig(
             format=__format,

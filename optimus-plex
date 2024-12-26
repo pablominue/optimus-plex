@@ -53,6 +53,7 @@ if __name__ == '__main__':
     """
     lg.add_title("OPTIMUS PLEX")
     api = Plex().connect_with_token(PLEX_URL, PLEX_TOKEN)
+    items = 0
     while True:
         converter = Converter(output_format=OUTPUT_FORMAT, delete_old=DELETE_OLD)
         sessions = api.check_sessions()
@@ -61,6 +62,8 @@ if __name__ == '__main__':
             for item in converter.run(input_format=INPUT_FORMAT, base_path=BASE_PATH):
                 message = "Conversion Done" if item else "Conversion Failed"
                 lg.log.info(message)
+                items += int(item)
+                lg.log.info(f"{items} converted...")
                 if len(api.check_sessions()) > 0:
                     lg.log.info("Active session detected. Stopping conversion...")
                     break

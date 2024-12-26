@@ -74,3 +74,4 @@ class Plex:
     
     def get_butler_tasks(self) -> list[MediaContainer]:
         lg.log.info([task.name for task in self.server.butlerTasks()])
+        self.server.createCollection()
