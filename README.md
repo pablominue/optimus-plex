@@ -31,6 +31,7 @@ poetry install
 3. Ensure ffmpeg is installed on your system.
 
 ## Docker Instructions
+[Link to the Docker Image](https://hub.docker.com/r/pablominue/optimus-plex)
 To run Optimus Plex using Docker, follow these steps:
 
 1.
