@@ -33,7 +33,7 @@ class Converter:
             output_format (str): The desired output format.
 
         Returns:
-            None
+            None0
         """
         output = file.replace(f'.{input_format}', f'.{output_format}')
         ffmpeg.input(file).output(output).run()

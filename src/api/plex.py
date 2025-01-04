@@ -54,6 +54,14 @@ class Plex:
         self.server = MyPlexAccount(username, password).resource(server_url).connect()
         return self
         
+    def _get_sessions(self) -> list[MediaContainer]:
+        sessions = self.server.sessions()
+        for s in sessions:
+            title = s.originalTitle
+            players = s.players
+            lg.log.info(f"Sesion Found: {title=}, {players=}")
+            
+        return sessions
     def check_sessions(self) -> list[MediaContainer]:
         """
         Check and log the current active sessions on the Plex server.
@@ -64,13 +72,14 @@ class Plex:
         Returns:
             list[MediaContainer]: A list of MediaContainer objects representing the active sessions.
         """
-        sessions = self.server.sessions()
-        for s in sessions:
-            title = s.originalTitle
-            players = s.players
-            lg.log.info(f"Sesion Found: {title=}, {players=}")
-            
-        return sessions
+        
+        try:
+            return self._get_sessions()
+        except:
+            lg.log.warning("Connection Lost, trying to reconnect...")
+            self.connect_with_token(PLEX_URL, PLEX_TOKEN)
+            lg.log.info("Reconnected Successfully...")
+            return self._get_sessions()
     
     def get_butler_tasks(self) -> list[MediaContainer]:
         lg.log.info([task.name for task in self.server.butlerTasks()])
