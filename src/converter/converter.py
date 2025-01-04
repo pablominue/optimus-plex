@@ -59,7 +59,7 @@ class Converter:
                 lg.log.info("File %s Successfuly converted to %s", path, self.output_format)
                 done += 1
                 lg.log.info("%s Converted out of %s", done, total)
-                ratio = "#"* 20 / round(done/total)
+                ratio = "#"* round(20 / (done/total))
                 lg.log.info(ratio)
                 if self.delete_old:
                     os.remove(path)
