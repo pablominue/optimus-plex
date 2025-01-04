@@ -50,7 +50,7 @@ class Converter:
             None
         """
         crowler = Crowler(base_path=base_path)
-        total = len(list[crowler.crowl(input_format)])
+        total = len(list(crowler.crowl(input_format)))
         lg.log.info("Total Files to Convert: %s", total)
         done = 0
         for path in crowler.crowl(input_format):
