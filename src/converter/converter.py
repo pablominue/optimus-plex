@@ -50,10 +50,17 @@ class Converter:
             None
         """
         crowler = Crowler(base_path=base_path)
+        total = len(list[crowler.crowl(input_format)])
+        lg.log.info("Total Files to Convert: %s", total)
+        done = 0
         for path in crowler.crowl(input_format):
             try:
                 self.__convert(path, input_format=input_format, output_format=self.output_format)
                 lg.log.info("File %s Successfuly converted to %s", path, self.output_format)
+                done += 1
+                lg.log.info("%s Converted out of %s", done, total)
+                ratio = "#"* 20 / round(done/total)
+                lg.log.info(ratio)
                 if self.delete_old:
                     os.remove(path)
                     lg.log.info("File %s has been deleted", path)
